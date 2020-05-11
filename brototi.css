@@ -1,0 +1,113 @@
+/**
+ * Daytime sunny: https://marketplace.canva.com/EADaolBd2RI/1/0/1600w/canva-orange-gradient-background-o2hhkFDVvtk.jpg
+ * 
+ * Daytime cloudy: https://www.xmple.com/wallpaper/gradient-linear-blue-grey-2880x1800-c2-d3d3d3-87cefa-a-60-f-14.svg
+ * 
+ * Nighttime: https://sportsturf.net/wp-content/uploads/2016/06/Blue-Gradient-Background-Wallpaper.jpg
+ */
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: rgb(61, 65, 66);
+    font-family: 'Poppins', sans-serif;
+}
+p, div {
+    font-family: 'Open Sans', sans-serif;
+}
+p, div, span {
+    color: #ffffff;
+}
+.bright-text-shadow {
+    text-shadow: 4px 2px 3px rgba(196,196,196,0.85);
+}
+.dark-text-shadow {
+    text-shadow: 4px 2px 6px rgba(81,81,81,0.91);
+}
+.margin-fix {
+    margin-bottom: 5px !important;
+}
+h1 {
+    margin-top: 10%;
+}
+.highlighted {
+    font-weight: 600;
+    color: #46ccc1;
+}
+a {
+    text-decoration: none ;
+    color: inherit !important;
+}
+
+
+.headline {
+    font-weight: 600;
+}
+#weather {
+    font-weight: 200;
+    font-style: italic;
+    font-size: 1.5rem;
+}
+.card {
+    margin: 0 auto;
+    background-image: url('https://sportsturf.net/wp-content/uploads/2016/06/Blue-Gradient-Background-Wallpaper.jpg');
+}
+.date {
+    font-size: .9rem;
+}
+.weather-today {
+    font-size: 1.5rem;
+}
+.location {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+.temperature {
+    font-weight: 600;
+    font-size: 5rem;
+}
+.condition {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+.realFeel {
+    font-weight: 400;
+    font-style: italic;
+}
+.tag {
+    font-weight: 600;
+}
+.convert {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+.convert:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+i {
+    font-size: 1.5rem;
+}
+.footer-content {
+    font-weight: 400;
+}
+
+
+/**
+ * RESPONSIVE
+ */
+@media (max-width: 576px) { 
+    .temperature {
+        font-size: 3.5rem;
+    }
+}
+
+@media (min-width: 576px) { 
+    .temperature {
+        font-size: 4rem;
+    }
+}
