@@ -3,6 +3,7 @@
  */
 .wrapper {
     width: 100vw;
+    min-height: 100vh;
     margin: 0 auto;
     padding: 0;
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRh59sleKrQr9sIWWDKc3G3YTjt9raoVr_mwxol_T7CuYI_-JTA&usqp=CAU');
