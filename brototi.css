@@ -1,16 +1,12 @@
 /**
- * Daytime sunny: https://marketplace.canva.com/EADaolBd2RI/1/0/1600w/canva-orange-gradient-background-o2hhkFDVvtk.jpg
- * 
- * Daytime cloudy: https://www.xmple.com/wallpaper/gradient-linear-blue-grey-2880x1800-c2-d3d3d3-87cefa-a-60-f-14.svg
- * 
- * Nighttime: https://sportsturf.net/wp-content/uploads/2016/06/Blue-Gradient-Background-Wallpaper.jpg
+ * Globals and fixes
  */
-
 .wrapper {
     width: 100vw;
     height: 100vh;
     margin: 0 auto;
     padding: 0;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRh59sleKrQr9sIWWDKc3G3YTjt9raoVr_mwxol_T7CuYI_-JTA&usqp=CAU');
 }
 h1, h2, h3, h4, h5, h6 {
     color: rgb(61, 65, 66);
@@ -31,19 +27,26 @@ p, div, span {
 .margin-fix {
     margin-bottom: 5px !important;
 }
-h1 {
-    margin-top: 10%;
-}
 .highlighted {
     font-weight: 600;
-    color: #46ccc1;
+    color: #46ccc1 !important;
 }
 a {
     text-decoration: none ;
     color: inherit !important;
 }
+.full-bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.card {
+    border: 0 !important;
+}
 
 
+.content {
+    padding-top: 5%;
+}
 .headline {
     font-weight: 600;
 }
@@ -54,7 +57,6 @@ a {
 }
 .card {
     margin: 0 auto;
-    background-image: url('https://sportsturf.net/wp-content/uploads/2016/06/Blue-Gradient-Background-Wallpaper.jpg');
 }
 .date {
     font-size: .9rem;
@@ -94,6 +96,29 @@ i {
 }
 .footer-content {
     font-weight: 400;
+}
+
+
+/**
+ * Background images
+ */
+.sunny-card {
+    background-image : url('https://marketplace.canva.com/EADaolBd2RI/1/0/1600w/canva-orange-gradient-background-o2hhkFDVvtk.jpg');
+}
+.cloudy-card {
+    background-image : url('https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-075-clean-mirror.png');
+}
+.night-card {
+    background-image : url('https://sportsturf.net/wp-content/uploads/2016/06/Blue-Gradient-Background-Wallpaper.jpg');
+}
+.sunny-bg {
+    background-image : url('https://critter-sitters.com/wp-content/uploads/2018/07/pexels-photo-301599.jpeg');
+}
+.cloudy-bg {
+    background-image : url('https://i.pinimg.com/originals/cb/6d/2c/cb6d2c974f71580b964c1f931e8b2aa3.jpg');
+}
+.night-bg {
+    background-image : url('https://i.pinimg.com/originals/96/bb/de/96bbdef0373c7e8e7899c01ae11aee91.jpg');
 }
 
 
