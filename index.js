@@ -1,5 +1,7 @@
 $(document).ready(function() {
     $('#weather').hide();
+    $('#loading').show();
+
     var unit = 'f';
     var convert = $('.convert');
 
@@ -80,6 +82,8 @@ $(document).ready(function() {
             url: api + '&query=' + latitude + ',' + longitude + '&units=' + unit,
             success: function(data) {
                 console.log(data);
+                $('#loading').hide();
+                $('#weather').show();
                 setWeatherUI(data);
             }
         });

@@ -28,7 +28,7 @@ p, div, span {
 }
 .highlighted {
     font-weight: 600;
-    color: #46ccc1 !important;
+    color: #88589e !important;
 }
 a {
     text-decoration: none ;
@@ -49,7 +49,7 @@ a {
 .headline {
     font-weight: 600;
 }
-#weather {
+#loading {
     font-weight: 200;
     font-style: italic;
     font-size: 1.5rem;
@@ -96,7 +96,12 @@ i {
 .footer-content {
     font-weight: 400;
 }
-
+.page-bg {
+    background-image: url('https://designshack.net/wp-content/uploads/weatherstack.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 
 
 /**
