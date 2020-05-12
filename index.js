@@ -36,7 +36,6 @@ $(document).ready(function() {
         }
     }
 
-
     if(navigator.geolocation) {
         var currentPosition = '';
 
@@ -50,6 +49,11 @@ $(document).ready(function() {
     }
 
 
+    /**
+     * Gets weather data of location using current latitude and longitude
+     * @param {1} latitude float
+     * @param {1} longitude float
+     */
     function grabWeatherData(latitude, longitude) {
         var api = 'http://api.weatherstack.com/current?access_key=8d3baa7becfab1a05751bfbe036909cd';
 
@@ -66,6 +70,10 @@ $(document).ready(function() {
     }
 
 
+    /**
+     * Sets weather UI on html to data provided by api
+     * @param {1} data JSON data provided by api
+     */
     function setWeatherUI(data) {
         var daytime = data.current.is_day;
         // var daytime = 'no';
@@ -93,6 +101,11 @@ $(document).ready(function() {
     }
 
 
+    /**
+    * Grabs card and page background based on weather condition
+    * @param {1} condition String
+    * @param {2} daytime Boolean
+    */
     function getBackground(condition, daytime) {
         console.log(condition, daytime)
 
@@ -120,6 +133,11 @@ $(document).ready(function() {
     }
 
 
+    /**
+    * Set the weather card and background image to image url
+    * @param {1} cardBg String 
+    * @param {2} pageBg String
+    */
     function setBackground(cardBg, pageBg) {
         $('.card-bg').css('background-image', `url(${cardBg})`);
         $('.page-bg').css('background-image', `url(${pageBg})`);
