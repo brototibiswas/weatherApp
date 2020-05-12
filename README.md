@@ -18,7 +18,7 @@ This app sometimes does not work on Google Chrome because of Chrome's security o
 - Current Feel temperature
 - Wind Speed
 - Humidity
-- UV Index
+- Visibility
 
 
 View Project [here](https://brototibiswas.github.io/weatherApp/)
