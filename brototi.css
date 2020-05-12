@@ -97,10 +97,8 @@ i {
     font-weight: 400;
 }
 .page-bg {
-    background-image: url('https://designshack.net/wp-content/uploads/weatherstack.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background: rgb(87,179,207);
+    background: linear-gradient(0deg, rgba(87,179,207,1) 0%, rgba(255,210,113,1) 100%);
 }
 
 

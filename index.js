@@ -11,16 +11,18 @@ $(document).ready(function() {
 
 
     if(unit == 'f') convert.text('c');
-    else if (unit == 'm') convert.text('f');
+    else if (unit == 'c') convert.text('f');
 
     var units = {
-        'm' : {
+        'c' : {
             'temp' : 'C',
-            'wind' : 'kmph'
+            'wind' : 'Kmph',
+            'vis'  : 'KM'
         },
         'f' : {
             'temp' : 'F',
-            'wind' : 'Mph'
+            'wind' : 'Mph',
+            'vis'  : 'M'
         }
     }
 
@@ -50,7 +52,7 @@ $(document).ready(function() {
             var latitude = currentPosition.coords.latitude;
             var longitude = currentPosition.coords.longitude;
 
-            grabWeatherData(latitude, longitude, unit);
+            grabWeatherData(latitude, longitude);
 
             $('.convert').on('click', function(e) {
                 console.log(e);
@@ -59,12 +61,12 @@ $(document).ready(function() {
                 if(u == 'f') {
                     unit = 'f';
                     e.target.innerHTML = 'c';
-                    grabWeatherData(latitude, longitude, unit);
+                    grabWeatherData(latitude, longitude);
                 }
                 else if(u == 'c') {
-                    unit = 'm';
+                    unit = 'c';
                     e.target.innerHTML = 'f';
-                    grabWeatherData(latitude, longitude, unit);
+                    grabWeatherData(latitude, longitude);
                 }
             });
         });
@@ -76,14 +78,13 @@ $(document).ready(function() {
      * @param {1} latitude float
      * @param {1} longitude float
      */
-    function grabWeatherData(latitude, longitude, unit) {
-        var api = 'http://api.weatherstack.com/current?access_key=8d3baa7becfab1a05751bfbe036909cd';
+    function grabWeatherData(latitude, longitude) {
+        var api = 'https://api.weatherapi.com/v1/current.json?key=aee66bc4bb8b43bb887230554201205';
 
         $.ajax({
             type: "GET",
-            headers: {'Access-Control-Allow-Origin':'*'},
-            dataType: "jsonp",
-            url: api + '&query=' + latitude + ',' + longitude + '&units=' + unit,
+            dataType: "json",
+            url: api + '&q=' + latitude + ',' + longitude,
             success: function(data) {
                 console.log(data);
                 $('#loading').hide();
@@ -91,6 +92,7 @@ $(document).ready(function() {
                 setWeatherUI(data);
             }
         });
+
     }
 
 
@@ -100,26 +102,34 @@ $(document).ready(function() {
      */
     function setWeatherUI(data) {
         var daytime = data.current.is_day;
-        // var daytime = 'no';
         var today = new Date();
         var day = getWeekday(today.getDay());
         var currentTime = data.location.localtime.substring(11);
-        var condition = data.current.weather_descriptions[0]
+        var condition = data.current.condition.text
         // var condition = 'cloudy'
 
         $('.location').text(`${data.location.name} , ${data.location.region} `);
         $('.time').text(currentTime);
         $('.day').text(day);
-        $('.temperature').text(data.current.temperature);
+        $('.condition').text(condition);
+        $('.humidityNum').text(data.current.humidity);
         $('.tempUnit').text(units[unit].temp);
         $('.tempUnitSm').text(units[unit].temp);
-        $('.feelTemp').text(data.current.feelslike);
-        $('.condition').text(condition);
-        $('.windNum').text(data.current.wind_speed);
         $('.windUnit').text(units[unit].wind);
-        $('.humidityNum').text(data.current.humidity);
-        $('.uvIdx').text(data.current.uv_index);
-        $('.weather_icon').attr('src', data.current.weather_icons[0]);
+        $('.visUnit').text(units[unit].vis);
+
+        if(unit == 'f') {
+            $('.temperature').text(data.current.temp_f);
+            $('.feelTemp').text(data.current.feelslike_c);
+            $('.windNum').text(data.current.wind_mph);
+            $('.visNum').text(data.current.vis_km);
+        }
+        else if(unit == 'c') {
+            $('.temperature').text(data.current.temp_c);
+            $('.feelTemp').text(data.current.feelslike_c);
+            $('.windNum').text(data.current.wind_kph);
+            $('.visNum').text(data.current.vis_miles);
+        }
 
         getBackground(condition.toLowerCase(), daytime);
     }
@@ -128,10 +138,11 @@ $(document).ready(function() {
     /**
     * Grabs card and page background based on weather condition
     * @param {1} condition String
-    * @param {2} daytime Boolean
+    * @param {2} daytime Number
     */
     function getBackground(condition, daytime) {
-        if(daytime == 'yes') {
+        console.log(condition)
+        if(daytime == '1') {
             if(condition == 'sunny' || condition == 'partly cloudy' || condition == 'overcast') {
                 setBackground(bg.sunny.card, bg.sunny.page)
             }
@@ -139,7 +150,7 @@ $(document).ready(function() {
                 setBackground(bg.cloudy.card, bg.cloudy.page)
             }
         }
-        else if (daytime == 'no') {
+        else if (daytime == '0') {
             if(condition == 'clear' || condition == 'partly cloudy' || condition == 'overcast') {
                 setBackground(bg.night.card, bg.night.page)
             }
