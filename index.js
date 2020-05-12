@@ -68,9 +68,12 @@ $(document).ready(function() {
 
     function setWeatherUI(data) {
         var daytime = data.current.is_day;
+        // var daytime = 'no';
         var today = new Date();
         var day = getWeekday(today.getDay());
         var currentTime = data.location.localtime.substring(11);
+        var condition = data.current.weather_descriptions[0]
+        // var condition = 'cloudy'
 
         $('.location').text(`${data.location.name} , ${data.location.region} `);
         $('.time').text(currentTime);
@@ -79,14 +82,48 @@ $(document).ready(function() {
         $('.tempUnit').text(units[unit].temp);
         $('.tempUnitSm').text(units[unit].temp);
         $('.feelTemp').text(data.current.feelslike);
-        $('.condition').text(data.current.weather_descriptions[0]);
+        $('.condition').text(condition);
         $('.windNum').text(data.current.wind_speed);
         $('.windUnit').text(units[unit].wind);
         $('.humidityNum').text(data.current.humidity);
         $('.uvIdx').text(data.current.uv_index);
         $('.weather_icon').attr('src', data.current.weather_icons[0]);
 
-        getBackground(data.current.weather_descriptions[0], daytime);
+        getBackground(condition.toLowerCase(), daytime);
+    }
+
+
+    function getBackground(condition, daytime) {
+        console.log(condition, daytime)
+
+        if(daytime == 'yes') {
+            if(condition == 'sunny' || condition == 'partly cloudy' || condition == 'overcast') {
+                console.log('day sunny')
+                setBackground(bg.sunny.card, bg.sunny.page)
+            }
+            else if (condition == 'mist' || condition == 'cloudy' || condition == 'fog' || condition == 'freezing fog') {
+                console.log('day cloudy')
+                setBackground(bg.cloudy.card, bg.cloudy.page)
+            }
+        }
+        else if (daytime == 'no') {
+            if(condition == 'clear' || condition == 'partly cloudy' || condition == 'overcast') {
+                console.log('night clear')
+                setBackground(bg.night.card, bg.night.page)
+            }
+            else if (condition == 'mist' || condition == 'cloudy' || condition == 'fog' || condition == 'freezing fog') {
+                console.log('night cloudy')
+                setBackground(bg.cloudy.card, bg.night.page)
+            }
+        }
+        
+    }
+
+
+    function setBackground(cardBg, pageBg) {
+        $('.card-bg').css('background-image', `url(${cardBg})`);
+        $('.page-bg').css('background-image', `url(${pageBg})`);
+
     }
 
 
