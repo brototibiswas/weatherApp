@@ -45,6 +45,22 @@ $(document).ready(function() {
             var longitude = currentPosition.coords.longitude;
 
             grabWeatherData(latitude, longitude, unit);
+
+            $('.convert').on('click', function(e) {
+                console.log(e);
+                var u = e.target.innerHTML;
+    
+                if(u == 'f') {
+                    unit = 'f';
+                    e.target.innerHTML = 'c';
+                    grabWeatherData(latitude, longitude, unit);
+                }
+                else if(u == 'c') {
+                    unit = 'm';
+                    e.target.innerHTML = 'f';
+                    grabWeatherData(latitude, longitude, unit);
+                }
+            });
         });
     }
 
@@ -54,7 +70,7 @@ $(document).ready(function() {
      * @param {1} latitude float
      * @param {1} longitude float
      */
-    function grabWeatherData(latitude, longitude) {
+    function grabWeatherData(latitude, longitude, unit) {
         var api = 'http://api.weatherstack.com/current?access_key=8d3baa7becfab1a05751bfbe036909cd';
 
         $.ajax({
@@ -107,25 +123,19 @@ $(document).ready(function() {
     * @param {2} daytime Boolean
     */
     function getBackground(condition, daytime) {
-        console.log(condition, daytime)
-
         if(daytime == 'yes') {
             if(condition == 'sunny' || condition == 'partly cloudy' || condition == 'overcast') {
-                console.log('day sunny')
                 setBackground(bg.sunny.card, bg.sunny.page)
             }
             else if (condition == 'mist' || condition == 'cloudy' || condition == 'fog' || condition == 'freezing fog') {
-                console.log('day cloudy')
                 setBackground(bg.cloudy.card, bg.cloudy.page)
             }
         }
         else if (daytime == 'no') {
             if(condition == 'clear' || condition == 'partly cloudy' || condition == 'overcast') {
-                console.log('night clear')
                 setBackground(bg.night.card, bg.night.page)
             }
             else if (condition == 'mist' || condition == 'cloudy' || condition == 'fog' || condition == 'freezing fog') {
-                console.log('night cloudy')
                 setBackground(bg.cloudy.card, bg.night.page)
             }
         }
