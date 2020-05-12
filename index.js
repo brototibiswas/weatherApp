@@ -2,6 +2,10 @@ $(document).ready(function() {
     $('#weather').hide();
     $('#loading').show();
 
+    if (window.location.host.indexOf('github.io') > -1){
+        $('#loading').text("Error: The api is blocked on Github Pages because it is not hosted over http :(");
+    }
+
     var unit = 'f';
     var convert = $('.convert');
 
