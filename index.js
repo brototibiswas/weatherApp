@@ -41,11 +41,17 @@ $(document).ready(function() {
     }
 
     if(navigator.geolocation) {
-        var currentPosition = '';
+        console.log(navigator.geolocation)
+        navigator.geolocation.getCurrentPosition(getLocationData, locationAccessError);
+    }
 
-        navigator.geolocation.getCurrentPosition(function(position) {
-            currentPosition = position;
-            var latitude = currentPosition.coords.latitude;
+
+    /**
+     * Get Latitude and Longitude data from user location
+     * @param {1} currentPosition 
+     */
+    function getLocationData(currentPosition) {
+        var latitude = currentPosition.coords.latitude;
             var longitude = currentPosition.coords.longitude;
 
             grabWeatherData(latitude, longitude);
@@ -65,7 +71,6 @@ $(document).ready(function() {
                     grabWeatherData(latitude, longitude);
                 }
             });
-        });
     }
 
 
@@ -197,5 +202,27 @@ $(document).ready(function() {
                 break;
         }
     }
+
+
+    /**
+     * Show location access errors
+     * @param {1} error 
+     */
+    function locationAccessError(error) {
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            $('#loading').text("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            $('#loading').text("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            $('#loading').text("The request to get user location timed out.");
+            break;
+          case error.UNKNOWN_ERROR:
+            $('#loading').text("An unknown error occurred.");
+            break;
+        }
+      }
     
 });
