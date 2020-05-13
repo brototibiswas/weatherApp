@@ -137,7 +137,7 @@ $(document).ready(function() {
 
         if(unit == 'f') {
             $('.temperature').text(data.current.temp_f);
-            $('.feelTemp').text(data.current.feelslike_c);
+            $('.feelTemp').text(data.current.feelslike_f);
             $('.windNum').text(data.current.wind_mph);
             $('.visNum').text(data.current.vis_km);
         }
