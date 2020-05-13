@@ -1,23 +1,14 @@
 $(document).ready(function() {
     $('#weather').hide();
     $('#loading').show();
-    var weatherData = []
-
-    //read data from api provided weather condition file. Already converted from csv to json
-    $.getJSON("/weatherInfo.json", function (data) {
-        $.each(data, function (index, value) {
-           weatherData.push(value)
-        });
-    });
-    console.log(weatherData)
-
     var unit = 'f';
     var convert = $('.convert');
-
-
     if(unit == 'f') convert.text('c');
     else if (unit == 'c') convert.text('f');
+    var weatherData = getWeatherData();
 
+    console.log(weatherData.length)
+    
     var units = {
         'c' : {
             'temp' : 'C',
@@ -50,10 +41,29 @@ $(document).ready(function() {
     }
 
     if(navigator.geolocation) {
-        console.log(navigator.geolocation)
         navigator.geolocation.getCurrentPosition(getLocationData, locationAccessError);
     }
 
+
+    /**
+     * Get weather data provided by api
+     * The weather data is converted to json and uploaded to JSONBIN.IO to access from
+     */
+    function getWeatherData() {
+        var res;
+        //read data from api provided weather condition file. Already converted from csv to json
+        $.ajax({
+            type: 'GET',
+            headers: {'secret-key' : '$2b$10$eFY3T0usfqerBtFjNKtdi.9i2TIHlnHij/32392r0LhbxIudAtWly'},
+            url: 'https://api.jsonbin.io/b/5ebc2b2a8284f36af7ba95bf/1',
+            async: false,
+            success: function(data) {
+                console.log('done')
+                res = data;
+            }
+        });
+        return res;
+    }
 
     /**
      * Get Latitude and Longitude data from user location
@@ -66,7 +76,6 @@ $(document).ready(function() {
             grabWeatherData(latitude, longitude);
 
             $('.convert').on('click', function(e) {
-                console.log(e);
                 var u = e.target.innerHTML;
     
                 if(u == 'f') {
@@ -92,11 +101,10 @@ $(document).ready(function() {
         var api = 'https://api.weatherapi.com/v1/current.json?key=aee66bc4bb8b43bb887230554201205';
 
         $.ajax({
-            type: "GET",
-            dataType: "json",
+            type: 'GET',
+            dataType: 'json',
             url: api + '&q=' + latitude + ',' + longitude,
             success: function(data) {
-                console.log(data);
                 $('#loading').hide();
                 $('#weather').show();
                 setWeatherUI(data);
@@ -151,7 +159,6 @@ $(document).ready(function() {
     * @param {2} daytime Number
     */
     function getBackground(condition, daytime) {
-        console.log(condition)
         if(daytime == '1') {
             if(condition == 'sunny' || condition == 'partly cloudy' || condition == 'overcast') {
                 setBackground(bg.sunny.card, bg.sunny.page)
@@ -180,7 +187,6 @@ $(document).ready(function() {
     function setBackground(cardBg, pageBg) {
         $('.card-bg').css('background-image', `url(${cardBg})`);
         $('.page-bg').css('background-image', `url(${pageBg})`);
-
     }
 
 
@@ -202,7 +208,6 @@ $(document).ready(function() {
             day = 'night';
         }
 
-        console.log('day', day)
         iconImg = setIcon(condition, day);
         icon.attr('src', iconImg);
     }
@@ -214,17 +219,18 @@ $(document).ready(function() {
      * @param {2} day 
      */
     function setIcon(condition, day) {
-        console.log(condition,day)
-        var cond = condition.replace(/(?:^|\s)\w/g, function(match) {
+        var cond = condition.replace(condition[0], function(match) {
             return match.toUpperCase();
         });
+        console.log(cond)
 
-        var code =  weatherData.filter(function(item) {
-            return item.day == cond;
+        var icon = weatherData.filter(function(item) {
+            if(item.day == cond) return item;
         });
 
-        console.log(code[0].icon)
-        return `/weather/64x64/${day}/${code[0].icon}.png`
+        console.log('icon', icon[0].icon);
+
+        return `/weather/64x64/${day}/${icon[0].icon}.png`
     }
 
 
@@ -233,8 +239,6 @@ $(document).ready(function() {
      * @param {1} num 
      */
     function getWeekday(num) {
-        console.log(num);
-
         switch(num) {
             case 0 : 
                 return 'Sunday';
