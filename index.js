@@ -1,6 +1,14 @@
 $(document).ready(function() {
     $('#weather').hide();
     $('#loading').show();
+    var weatherData = []
+
+    $.getJSON("/weatherInfo.json", function (data) {
+        $.each(data, function (index, value) {
+           weatherData.push(value)
+        });
+    });
+    console.log(weatherData)
 
     var unit = 'f';
     var convert = $('.convert');
@@ -107,7 +115,6 @@ $(document).ready(function() {
         var day = getWeekday(today.getDay());
         var currentTime = data.location.localtime.substring(11);
         var condition = data.current.condition.text
-        // var condition = 'cloudy'
 
         $('.location').text(`${data.location.name} , ${data.location.region} `);
         $('.time').text(currentTime);
@@ -133,6 +140,7 @@ $(document).ready(function() {
         }
 
         getBackground(condition.toLowerCase(), daytime);
+        setWeatherIcon(condition.toLowerCase(), daytime);
     }
 
 
@@ -175,6 +183,44 @@ $(document).ready(function() {
     }
 
 
+    function setWeatherIcon(condition, daytime) {
+        var icon = $('.icon');
+        icon.html('');
+        var iconImg = '';
+        var day;
+
+        if(daytime == '1') {
+            day = 'day';
+        }
+        else if(daytime == '0'){
+            day = 'night';
+        }
+
+        console.log('day', day)
+        iconImg = setIcon(condition, day);
+        icon.attr('src', iconImg);
+    }
+
+
+    function setIcon(condition, day) {
+        console.log(condition,day)
+        var cond = condition.replace(/(?:^|\s)\w/g, function(match) {
+            return match.toUpperCase();
+        });
+
+        var code =  weatherData.filter(function(item) {
+            return item.day == cond;
+        });
+
+        console.log(code[0].icon)
+        return `/weather/64x64/${day}/${code[0].icon}.png`
+    }
+
+
+    /**
+     * Return weekday name based on weekday number
+     * @param {1} num 
+     */
     function getWeekday(num) {
         console.log(num);
 
