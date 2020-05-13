@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('#loading').show();
     var weatherData = []
 
+    //read data from api provided weather condition file. Already converted from csv to json
     $.getJSON("/weatherInfo.json", function (data) {
         $.each(data, function (index, value) {
            weatherData.push(value)
@@ -183,6 +184,11 @@ $(document).ready(function() {
     }
 
 
+    /**
+     * Set api provided weather icon from pc based on condition
+     * @param {1} condition 
+     * @param {2} daytime 
+     */
     function setWeatherIcon(condition, daytime) {
         var icon = $('.icon');
         icon.html('');
@@ -202,6 +208,11 @@ $(document).ready(function() {
     }
 
 
+    /**
+     * Get image file for the current weather using the condition code provided by api
+     * @param {1} condition 
+     * @param {2} day 
+     */
     function setIcon(condition, day) {
         console.log(condition,day)
         var cond = condition.replace(/(?:^|\s)\w/g, function(match) {
