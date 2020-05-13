@@ -7,7 +7,7 @@ $(document).ready(function() {
     else if (unit == 'c') convert.text('f');
     var weatherData = getWeatherData();
 
-    console.log(weatherData.length)
+    console.log(weatherData)
     
     var units = {
         'c' : {
@@ -101,13 +101,13 @@ $(document).ready(function() {
      * @param {1} data JSON data provided by api
      */
     function setWeatherUI(data) {
-        // var daytime = data.current.is_day;
-        var daytime = '0';
+        var daytime = data.current.is_day;
+        // var daytime = '0';
         var today = new Date();
         var day = getWeekday(today.getDay());
         var currentTime = data.location.localtime.substring(11);
-        // var condition = data.current.condition.text
-        var condition = 'Clear'
+        var condition = data.current.condition.text
+        // var condition = 'Clear'
 
         $('.location').text(`${data.location.name} , ${data.location.region} `);
         $('.time').text(currentTime);
@@ -234,9 +234,10 @@ $(document).ready(function() {
      */
     function setIcon(condition, day) {
         var icon = weatherData.filter(function(item) {
-            if(item.day == condition) return item;
+            if(item[day] == condition) return item;
         });
 
+        console.log(icon)
         console.log('icon', icon[0].icon);
 
         return `weather/64x64/${day}/${icon[0].icon}.png`
