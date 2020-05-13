@@ -270,18 +270,20 @@ $(document).ready(function() {
      * @param {1} error 
      */
     function locationAccessError(error) {
+        $('#loading').hide()
+
         switch(error.code) {
           case error.PERMISSION_DENIED:
-            $('#loading').text("User denied the request for Geolocation.");
+            alert("You didn't allow location access. Please allow location access to check the weather.");
             break;
           case error.POSITION_UNAVAILABLE:
-            $('#loading').text("Location information is unavailable.");
+            alert("Make sure you have your location on.");
             break;
           case error.TIMEOUT:
-            $('#loading').text("The request to get user location timed out.");
+            alert("Oops!! Weather App crashed! Please refresh the page.");
             break;
           case error.UNKNOWN_ERROR:
-            $('#loading').text("An unknown error occurred.");
+            alert("I don't know what happened. Please refresh the page and make sure your internet and location is on and try again.");
             break;
         }
       }
