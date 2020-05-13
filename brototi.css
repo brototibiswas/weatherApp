@@ -35,8 +35,8 @@ a {
     color: inherit !important;
 }
 .full-bg {
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
 }
 .card {
     border: 0 !important;
@@ -104,6 +104,44 @@ i {
     height : 44px;
     width: 44px;
 }
+
+
+/**
+ * Card backgrounds
+ */
+#sunny-card {
+    background: rgb(230,170,31);
+    background: linear-gradient(354deg, rgba(230,170,31,1) 0%, rgba(255,230,122,1) 100%);
+}
+#cloudy-card {
+    background: rgb(109,139,175);
+    background: linear-gradient(9deg, rgba(109,139,175,1) 0%, rgba(200,215,219,1) 100%);
+}
+#stormy-card {
+    background: rgb(30,30,30);
+    background: linear-gradient(18deg, rgba(30,30,30,1) 23%, rgba(165,165,165,1) 100%);
+}
+#clearnight-card {
+    background: rgb(71,160,250);
+    background: radial-gradient(circle, rgba(71,160,250,1) 12%, rgba(9,95,181,1) 87%);
+}
+#snowy-day-card {
+    background: rgb(71,160,250);
+    background: linear-gradient(13deg, rgba(71,160,250,1) 0%, rgba(116,190,233,1) 0%, rgba(219,230,237,1) 72%);
+}
+#snowy-night-card{
+    background: rgb(105,138,186);
+    background: linear-gradient(236deg, rgba(105,138,186,1) 13%, rgba(36,48,70,1) 100%);
+}
+#rainy-card {
+    background: rgb(174,179,182);
+    background: linear-gradient(11deg, rgba(174,179,182,1) 13%, rgba(211,228,240,1) 86%);
+}
+#rainy-night-card {
+    background: rgb(114,152,148);
+    background: linear-gradient(288deg, rgba(114,152,148,1) 13%, rgba(42,97,107,1) 86%);    
+}
+
 
 
 /**

@@ -22,24 +22,6 @@ $(document).ready(function() {
         }
     }
 
-    var bg = {
-        'sunny' : {
-            'card' : 'https://marketplace.canva.com/EADaolBd2RI/1/0/1600w/canva-orange-gradient-background-o2hhkFDVvtk.jpg',
-            'page' : 'https://critter-sitters.com/wp-content/uploads/2018/07/pexels-photo-301599.jpeg'
-        },
-        'cloudy' : {
-            'card' : 'https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-075-clean-mirror.png',
-            'page' : 'https://i.pinimg.com/originals/cb/6d/2c/cb6d2c974f71580b964c1f931e8b2aa3.jpg'
-        },
-        'night' : {
-            'card' : 'https://sportsturf.net/wp-content/uploads/2016/06/Blue-Gradient-Background-Wallpaper.jpg',
-            'page' : 'https://i.pinimg.com/originals/96/bb/de/96bbdef0373c7e8e7899c01ae11aee91.jpg'
-        },
-        'clear' : {
-
-        }
-    }
-
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(getLocationData, locationAccessError);
     }
@@ -119,11 +101,13 @@ $(document).ready(function() {
      * @param {1} data JSON data provided by api
      */
     function setWeatherUI(data) {
-        var daytime = data.current.is_day;
+        // var daytime = data.current.is_day;
+        var daytime = '0';
         var today = new Date();
         var day = getWeekday(today.getDay());
         var currentTime = data.location.localtime.substring(11);
-        var condition = data.current.condition.text
+        // var condition = data.current.condition.text
+        var condition = 'Clear'
 
         $('.location').text(`${data.location.name} , ${data.location.region} `);
         $('.time').text(currentTime);
@@ -148,8 +132,8 @@ $(document).ready(function() {
             $('.visNum').text(data.current.vis_miles);
         }
 
-        getBackground(condition.toLowerCase(), daytime);
-        setWeatherIcon(condition.toLowerCase(), daytime);
+        getBackground(condition, daytime);
+        setWeatherIcon(condition, daytime);
     }
 
 
@@ -159,20 +143,48 @@ $(document).ready(function() {
     * @param {2} daytime Number
     */
     function getBackground(condition, daytime) {
+
+        // cloudy constant 
+        if (condition == 'Mist' || condition == 'Cloudy' || condition == 'Fog' || condition == 'Freezing fog') {
+            setBackground('cloudy-card', 'cloudy')
+        }
+
+        // stormy constant
+        else if(condition == 'Thundery outbreaks possible' || condition == 'Patchy light rain with thunder' || condition == 'Moderate or heavy rain with thunder' || condition == 'Patchy light snow with thunder' || condition == 'Moderate or heavy snow with thunder') {
+            setBackground('stormy-card', 'stormy')
+        }
+
         if(daytime == '1') {
-            if(condition == 'sunny' || condition == 'partly cloudy' || condition == 'overcast') {
-                setBackground(bg.sunny.card, bg.sunny.page)
+            // sunny day
+            if(condition == 'Sunny' || condition == 'Partly cloudy' || condition == 'Overcast') {
+                setBackground('sunny-card', 'sunny')
             }
-            else if (condition == 'mist' || condition == 'cloudy' || condition == 'fog' || condition == 'freezing fog') {
-                setBackground(bg.cloudy.card, bg.cloudy.page)
+
+            // rainy day
+            else if(condition == 'Patchy rain possible' || condition == 'Freezing drizzle' || condition == 'Patchy light drizzle' || condition == 'Light drizzle' || condition == 'Heavy freezing drizzle' || condition == 'Patchy light rain' || condition == 'Light rain' || condition == 'Moderate rain at times' || condition == 'Moderate rain' || condition == 'Heavy rain at times' || condition == 'Heavy rain' || condition == 'Light freezing rain' || condition == 'Moderate or heavy freezing rain' || condition == 'Light rain shower' || condition == 'Moderate or heavy rain shower' || condition == 'Torrential rain shower' || condition == 'Light rain shower') {
+                setBackground('rainy-card', 'rainyday');
             }
+
+            // snowy day
+            else if(condition == 'Patchy snow possible' || condition == 'Patchy sleet possible' || condition == 'Blowing snow' || condition == 'Blizzard' || condition == 'Light sleet' || condition == 'Moderate or heavy sleet' || condition == 'Patchy light snow' || condition == 'Light snow' || condition == 'Patchy moderate snow' || condition == 'Moderate snow' || condition == 'Patchy heavy snow' || condition == 'Heavy snow' || condition == 'Ice pellets' || condition == 'Light sleet showers' || condition == 'Moderate or heavy sleet showers' || condition == 'Light snow showers' || condition == 'Moderate or heavy snow showers' || condition == 'Light showers of ice pellets' || condition == 'Moderate or heavy showers of ice pellets') {
+                setBackground('snowy-day-card', 'snowyday');
+            }
+
         }
         else if (daytime == '0') {
-            if(condition == 'clear' || condition == 'partly cloudy' || condition == 'overcast') {
-                setBackground(bg.night.card, bg.night.page)
+            // clear night
+            if(condition == 'Clear' || condition == 'Partly cloudy' || condition == 'Overcast') {
+                setBackground('clearnight-card', 'clearnight')
             }
-            else if (condition == 'mist' || condition == 'cloudy' || condition == 'fog' || condition == 'freezing fog') {
-                setBackground(bg.cloudy.card, bg.night.page)
+
+            // rainy night
+            else if(condition == 'Patchy rain possible' || condition == 'Freezing drizzle' || condition == 'Patchy light drizzle' || condition == 'Light drizzle' || condition == 'Heavy freezing drizzle' || condition == 'Patchy light rain' || condition == 'Light rain' || condition == 'Moderate rain at times' || condition == 'Moderate rain' || condition == 'Heavy rain at times' || condition == 'Heavy rain' || condition == 'Light freezing rain' || condition == 'Moderate or heavy freezing rain' || condition == 'Light rain shower' || condition == 'Moderate or heavy rain shower' || condition == 'Torrential rain shower' || condition == 'Light rain shower') {
+                setBackground('rainy-night-card', 'rainynight');
+            }
+
+            //snowy night
+            else if(condition == 'Patchy snow possible' || condition == 'Patchy sleet possible' || condition == 'Blowing snow' || condition == 'Blizzard' || condition == 'Light sleet' || condition == 'Moderate or heavy sleet' || condition == 'Patchy light snow' || condition == 'Light snow' || condition == 'Patchy moderate snow' || condition == 'Moderate snow' || condition == 'Patchy heavy snow' || condition == 'Heavy snow' || condition == 'Ice pellets' || condition == 'Light sleet showers' || condition == 'Moderate or heavy sleet showers' || condition == 'Light snow showers' || condition == 'Moderate or heavy snow showers' || condition == 'Light showers of ice pellets' || condition == 'Moderate or heavy showers of ice pellets') {
+                setBackground('snowy-night-card', 'snowynight');
             }
         }
         
@@ -185,8 +197,10 @@ $(document).ready(function() {
     * @param {2} pageBg String
     */
     function setBackground(cardBg, pageBg) {
-        $('.card-bg').css('background-image', `url(${cardBg})`);
-        $('.page-bg').css('background-image', `url(${pageBg})`);
+        $('#weather').find('.card').attr('id', '');
+        $('#weather').find('.card').attr('id', cardBg);
+        console.log(pageBg)
+        $('.page-bg').css('background-image', `url(weather/backgrounds/${pageBg}.jpg)`);
     }
 
 
@@ -219,13 +233,8 @@ $(document).ready(function() {
      * @param {2} day 
      */
     function setIcon(condition, day) {
-        var cond = condition.replace(condition[0], function(match) {
-            return match.toUpperCase();
-        });
-        console.log(cond)
-
         var icon = weatherData.filter(function(item) {
-            if(item.day == cond) return item;
+            if(item.day == condition) return item;
         });
 
         console.log('icon', icon[0].icon);
