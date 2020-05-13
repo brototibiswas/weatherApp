@@ -230,7 +230,7 @@ $(document).ready(function() {
 
         console.log('icon', icon[0].icon);
 
-        return `/weather/64x64/${day}/${icon[0].icon}.png`
+        return `weather/64x64/${day}/${icon[0].icon}.png`
     }
 
 
