@@ -1,5 +1,4 @@
 # Weather App
-*In progress/Will be adding React in the future*
 
 This is a weather application made using JQuery that shows the current weather condition of your location. The weather data are provided by [Weather API](https://www.weatherapi.com/).
 
